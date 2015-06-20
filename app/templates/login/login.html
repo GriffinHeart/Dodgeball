@@ -1,0 +1,38 @@
+<!-- extend from base layout -->
+{% extends "base.html" %}
+{% block content %}
+
+{% from "_formhelpers.html" import render_field %}
+
+<div class="shadowed-div" style="text-align: center; width: 400px; margin: 0 auto; padding: 20px;">
+    {% include 'flash.html' %}
+    <h1>Tokyo Dodgeball</h1>
+    <h3>{{ _('Sign In') }}</h3>
+
+    <div style="text-align: left;">
+        <form action="" method="post" name="login">
+            {{form.hidden_tag()}}
+
+            <table class="table table-no-border table-condensed">
+                <tr>
+                    <td>
+                        {{ render_field(form.nickname, class="form-control", style="width: 100%;") }}<br/>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        {{ render_field(form.password, class="form-control", style="width: 100%;") }}<br/>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        {{ render_field(form.submit, label=False, class="form-control btn btn-info") }}<br/>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+{% endblock %}

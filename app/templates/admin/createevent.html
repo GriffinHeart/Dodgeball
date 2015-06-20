@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% from "_formhelpers.html" import render_field %}
+
+
+<link href="/static/css/bootstrap-datetimepicker.css" rel="stylesheet">
+<script type="text/javascript" src="/static/js/moment.js"></script>
+<script type="text/javascript" src="/static/js/transition.js"></script>
+<script type="text/javascript" src="/static/js/collapse.js"></script>
+<script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/static/js/bootstrap-datetimepicker.js"></script>
+
+<div class="shadowed-div" style="margin: 0 auto; min-width: 600px; max-width: 800px;">
+    {% include 'flash.html' %}
+    <h2>{{ _('Create Event') }}</h2>
+
+    <form action="createevent" method="post" name="createEventForm">
+    {{ form.hidden_tag() }}
+
+        <table class="table table-no-border table-condensed">
+            <tr>
+                <td>
+                    <div class='col-sm-12'>
+                        {{ render_field(form.summary, class="form-control", style="width: 100%;") }}<br/>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class='col-sm-12'>
+                        {{ render_field(form.description, class="form-control", style="width: 100%;") }}<br/>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class='col-sm-12'>
+                        {{ render_field(form.location, class="form-control", style="width: 100%;") }}<br/>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class='col-sm-12'>
+                        {{ render_field(form.start_dt, id="start_dt_input", class="form-control", style="width: 100%;") }}<br/>
+                    </div>
+                    <script type="text/javascript">
+                        $(function () {
+                            $('#start_dt_input').datetimepicker({
+                                format: 'YYYY-MM-DD h:mm A'
+                            });
+                        });
+                    </script>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class='col-sm-12'>
+                        {{ render_field(form.end_dt, id="end_dt_input", class="form-control", style="width: 100%;") }}<br/>
+                    </div>
+                    <script type="text/javascript">
+                        $(function () {
+                            $('#end_dt_input').datetimepicker({
+                                format: 'YYYY-MM-DD h:mm A'
+                            });
+                        });
+                    </script>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class='col-sm-12'>
+                        {{ render_field(form.submit, label=False, class="form-control btn btn-info") }}<br/>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </form>
+
+</div>
+
+{% endblock %}

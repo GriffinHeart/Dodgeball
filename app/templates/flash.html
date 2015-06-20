@@ -1,0 +1,16 @@
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+{% for message in messages %}
+<div id="flash-message-div" class="flash-message-div alert alert-info">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <span style="padding-right: 20px;">{{ message }}</span>
+</div>
+<script>
+var fade_out = function() {
+    $("#flash-message-div").fadeOut().empty();
+}
+setTimeout(fade_out, 5000);
+</script>
+{% endfor %}
+{% endif %}
+{% endwith %}

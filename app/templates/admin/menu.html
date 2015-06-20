@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="shadowed-div" style="min-width: 400px; max-width: 600px; margin: 0 auto; text-align: center;">
+    {% include 'flash.html' %}
+    <h2>{{ _('Admin Menu') }}</h2>
+    <ul class="list-group">
+        <a href="{{ url_for('usermanagement') }}" class="list-group-item list-group-item-info">{{ _('User Management') }}</a>
+    </ul>
+</div>
+
+{% endblock %}

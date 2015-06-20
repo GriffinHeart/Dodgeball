@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+<div class="shadowed-div">
+    {% include 'flash.html' %}
+    <h1>{{ _('Tokyo Dodgeball') }}</h1>
+    <img src="{{ url_for('static', filename='img/presentation/group_photo_1.jpg') }}" height="200px" />
+
+    <h3>{{ _('Next 10 events') }}</h3>
+    <table class="table table-condensed table-bordered">
+        <thead>
+        <tr>
+            <th style="border-right: 0px;">{{ _('Event name') }}</th>
+            <th style="border-left: 0px;"></th>
+            <th>{{ _('Date') }}</th>
+            <th>{{ _('Start') }}</th>
+            <th>{{ _('End') }}</th>
+        </tr>
+        </thead>
+    {% for event in events %}
+        <tr>
+            <td style="border-right: 0px;">{{ event.summary }}</td>
+            <td style="border-left: none; text-align: center;">
+                {% if event.location %}
+                <a href="http://maps.google.com/?q={{ event.location }}" target="_blank"/>
+                    <span class="glyphicon glyphicon-map-marker"></span>
+                </a>
+                {% endif %}
+            </td>
+            <td>
+                {% if event.start.dateTime %}
+                {{ momentjs(googletimeconv(event.start.dateTime|string).convert()).format('LL') }}
+                {% endif %}
+            </td>
+            <td>
+                {% if event.start.dateTime %}
+                {{ momentjs(googletimeconv(event.start.dateTime|string).convert()).format('h:mm a') }}
+                {% endif %}
+            </td>
+            <td>
+                {% if event.end.dateTime %}
+                {{ momentjs(googletimeconv(event.end.dateTime|string).convert()).format('h:mm a') }}
+                {% endif %}
+            </td>
+        </tr>
+    {% endfor %}
+    </table>
+
+</div>
+
+{% endblock %}

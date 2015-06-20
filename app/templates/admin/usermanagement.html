@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="shadowed-div" style="min-width: 400px; max-width: 800px; margin: 0 auto;">
+    {% include 'flash.html' %}
+    <h2>{{ _('User Management') }}</h2>
+
+    <table class="table table-condensed table-bordered table-responsive table-hover">
+        <thead>
+            <tr>
+                <th>{{ _('Nickname') }}</th>
+                <th>{{ _('Email') }}</th>
+                <th>{{ _('Language') }}</th>
+                <th>{{ _('Role') }}</th>
+            </tr>
+        </thead>
+
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.nickname }}</td>
+                <td>{{ user.email }}</td>
+                <td>
+                    {% if user.language in LANGUAGES %}
+                    {{ LANGUAGES[user.language] }}
+                    {% endif %}
+                </td>
+                <td>
+                    {% for role in USER_ROLES %}
+                    {% if user.role == USER_ROLES[role] %}
+                    {{ role }}
+                    {% endif %}
+                    {% endfor %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

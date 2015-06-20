@@ -1,0 +1,10 @@
+*.pyc
+*.pyo
+app.db
+flask
+*.mo
+config.py
+runp-mysql.fcgi
+
+.credentials
+.idea
