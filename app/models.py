@@ -23,14 +23,13 @@ class User(db.Model):
     def get_id(self):
         return unicode(self.id)
 
+    def is_admin(self):
+        return self.role == 0
+
     def __repr__(self):
         return '<User %r>' % (self.nickname)
 
 
 class Event(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    summary = db.Column(db.String(300))
-    description = db.Column(db.String(1000))
-    location = db.Column(db.String(300))
-    start_dt = db.Column(db.DateTime)
-    end_dt =db.Column(db.DateTime)
+    google_id = db.Column(db.String(100))

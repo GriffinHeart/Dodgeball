@@ -33,7 +33,6 @@
                 <li>{{ _('%(nickname)s', nickname = '<a href="%s">%s</a>' % (url_for('user'), g.user.nickname)) }}</li>
                 {% endautoescape %}
                 <li><a href="{{ url_for('logout') }}">{{ _('Logout') }}</a></li>
-                {% elif request.path == '/login' %}
                 {% else %}
                 <li><a href="{{ url_for('signin') }}">{{ _('Sign In') }}</a></li>
                 <li><a href="{{ url_for('login') }}">{{ _('Login') }}</a></li>

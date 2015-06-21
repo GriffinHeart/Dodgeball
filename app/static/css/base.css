@@ -7,6 +7,7 @@
 
 .flash-message-div {
     position: absolute;
+    z-index: 9999;
     right: 10px;
     padding: 10px 10px 10px 20px !important;
     -webkit-box-shadow: 2px 2px 5px 1px #BABABA;
@@ -55,7 +56,8 @@
 
 .shadowed-div {
     position: relative;
-    padding: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
     border-radius: 5px;
     background-color: #FFFFFF;
     box-shadow: 5px 5px 15px -5px rgba(0,0,0,.5);
@@ -68,4 +70,8 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+}
+
+.events-table td {
+    vertical-align: middle !important;
 }

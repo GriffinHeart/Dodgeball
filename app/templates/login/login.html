@@ -4,10 +4,17 @@
 
 {% from "_formhelpers.html" import render_field %}
 
+<script>
+    $(document).ready( function() {
+        $('#form-nickname-input').focus();
+    });
+</script>
+
 <div class="shadowed-div" style="text-align: center; width: 400px; margin: 0 auto; padding: 20px;">
     {% include 'flash.html' %}
     <h1>Tokyo Dodgeball</h1>
-    <h3>{{ _('Sign In') }}</h3>
+    <h4>{{ _('Login for registered users') }}</h4>
+    <br/>
 
     <div style="text-align: left;">
         <form action="" method="post" name="login">
@@ -16,7 +23,7 @@
             <table class="table table-no-border table-condensed">
                 <tr>
                     <td>
-                        {{ render_field(form.nickname, class="form-control", style="width: 100%;") }}<br/>
+                        {{ render_field(form.nickname, id="form-nickname-input", class="form-control", style="width: 100%;") }}<br/>
                     </td>
                 </tr>
 
@@ -33,6 +40,9 @@
                 </tr>
             </table>
         </form>
+        <div class="text-right">
+            <a href="{{ url_for('signin') }}">{{ _('Don\'t have an account?') }}</a>
+        </div>
     </div>
 </div>
 {% endblock %}

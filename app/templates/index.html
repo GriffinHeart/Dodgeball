@@ -1,51 +1,110 @@
 {% extends "base.html" %}
 {% block content %}
 
-
-<div class="shadowed-div">
+<div class="shadowed-div col-sm-12" style="min-width: 630px;">
     {% include 'flash.html' %}
-    <h1>{{ _('Tokyo Dodgeball') }}</h1>
-    <img src="{{ url_for('static', filename='img/presentation/group_photo_1.jpg') }}" height="200px" />
 
-    <h3>{{ _('Next 10 events') }}</h3>
-    <table class="table table-condensed table-bordered">
-        <thead>
-        <tr>
-            <th style="border-right: 0px;">{{ _('Event name') }}</th>
-            <th style="border-left: 0px;"></th>
-            <th>{{ _('Date') }}</th>
-            <th>{{ _('Start') }}</th>
-            <th>{{ _('End') }}</th>
-        </tr>
-        </thead>
-    {% for event in events %}
-        <tr>
-            <td style="border-right: 0px;">{{ event.summary }}</td>
-            <td style="border-left: none; text-align: center;">
-                {% if event.location %}
-                <a href="http://maps.google.com/?q={{ event.location }}" target="_blank"/>
-                    <span class="glyphicon glyphicon-map-marker"></span>
-                </a>
+    <div class="col-sm-12">
+        <div style="width: 575px; display: inline-block;">
+            <h2>{{ _('Tokyo Dodgeball Friendship Club') }}</h2>
+            <img src="{{ url_for('static', filename='img/presentation/group_photo_1.jpg') }}" height="200px" />
+        </div>
+
+        <div class="well" style="float: right; margin-top: 20px; margin-left: 20px;">
+            <table class="table table-condensed table-no-border" style="margin: 0px;">
+                <tr>
+                    <td>
+                        <a href="https://www.facebook.com/groups/tokyododgeballfc/" target="_blank">
+                            <img src="{{ url_for('static', filename='img/presentation/facebook-128.png') }}" height="48px" />
+                        </a>
+                    </td><td style="vertical-align: middle;">
+                        <a href="https://www.facebook.com/groups/tokyododgeballfc/" target="_blank">
+                            <span style="font-size: 1.6em;">{{ _('Our Facebook group') }}</span>
+                        </a>
+                    </td>
+                </tr><tr>
+                    <td>
+                        <a href="http://tokyododgeball.tumblr.com/" target="_blank">
+                            <img src="{{ url_for('static', filename='img/presentation/tumblr-128.png') }}" height="48px" style="border-radius: 10px;" />
+                        </a>
+                    </td><td style="vertical-align: middle;">
+                        <a href="http://tokyododgeball.tumblr.com/" target="_blank">
+                            <span style="font-size: 1.6em;">{{ _('Our Tumblr page') }}</span>
+                        </a>
+                    </td>
+                </tr><tr>
+                    <td>
+                        <a href="http://www.meetup.com/Tokyo-Dodgeball-Friendship-Club/" target="_blank">
+                            <img src="{{ url_for('static', filename='img/presentation/meetup-128.png') }}" height="48px" style="border-radius: 10px;" />
+                        </a>
+                    </td><td style="vertical-align: middle;">
+                        <a href="http://www.meetup.com/Tokyo-Dodgeball-Friendship-Club/" target="_blank">
+                            <span style="font-size: 1.6em;">{{ _('Our Meetup page') }}</span>
+                        </a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="col-sm-12">
+        <h3>{{ _('Next 10 events') }}</h3>
+        <table class="events-table table table-condensed table-bordered table-striped table-responsive table-hover">
+            <thead>
+            <tr>
+                <th style="border-right: 0px;">{{ _('Event name') }}</th>
+                <th style="border-left: 0px;"></th>
+                <th>{{ _('Date') }}</th>
+                <th>{{ _('Start') }}</th>
+                <th>{{ _('End') }}</th>
+                {% if g.user.is_authenticated() and g.user.is_admin() %}
+                <th style="width: 40px; border-right: 0px;"></th>
+                <th style="width: 40px; border-left: 0px;"></th>
                 {% endif %}
-            </td>
-            <td>
-                {% if event.start.dateTime %}
-                {{ momentjs(googletimeconv(event.start.dateTime|string).convert()).format('LL') }}
+            </tr>
+            </thead>
+        {% for event in events %}
+            <tr>
+                <td style="border-right: 0px;">{{ event.summary }}</td>
+                <td style="border-left: none; text-align: center;">
+                    {% if event.location %}
+                    <a href="http://maps.google.com/?q={{ event.location }}" target="_blank"/>
+                        <span class="glyphicon glyphicon-map-marker"></span>
+                    </a>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if event.start.dateTime %}
+                    {{ momentjs(googletimeconv(event.start.dateTime|string).convert()).format('LL') }}
+                    {% endif %}
+                </td>
+                <td>
+                    {% if event.start.dateTime %}
+                    {{ momentjs(googletimeconv(event.start.dateTime|string).convert()).format('h:mm a') }}
+                    {% endif %}
+                </td>
+                <td>
+                    {% if event.end.dateTime %}
+                    {{ momentjs(googletimeconv(event.end.dateTime|string).convert()).format('h:mm a') }}
+                    {% endif %}
+                </td>
+                {% if g.user.is_authenticated() and g.user.is_admin() %}
+                <td class="text-center" style="border-right: 0px;">
+                    <a href="{{ url_for('editevent', event_id=event.id) }}" class="btn btn-xs btn-warning">
+                        <span class="glyphicon glyphicon-wrench"></span>
+                    </a>
+                </td>
+                <td class="text-center" style="border-left: 0px;">
+                    <a href="{{ url_for('deleteevent', event_id=event.id) }}" class="btn btn-xs btn-danger"
+                            onclick="return confirm('{{ _("Do you really want to delete this event? This action is irreversible!") }}')">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </a>
+                </td>
                 {% endif %}
-            </td>
-            <td>
-                {% if event.start.dateTime %}
-                {{ momentjs(googletimeconv(event.start.dateTime|string).convert()).format('h:mm a') }}
-                {% endif %}
-            </td>
-            <td>
-                {% if event.end.dateTime %}
-                {{ momentjs(googletimeconv(event.end.dateTime|string).convert()).format('h:mm a') }}
-                {% endif %}
-            </td>
-        </tr>
-    {% endfor %}
-    </table>
+            </tr>
+        {% endfor %}
+        </table>
+    </div>
 
 </div>
 

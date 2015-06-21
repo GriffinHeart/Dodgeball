@@ -1,9 +1,37 @@
 {% extends "base.html" %}
 {% block content %}
 
-<div class="shadowed-div" style="min-width: 400px; max-width: 600px; margin: 0 auto; text-align: center;">
+{% from "_formhelpers.html" import render_field %}
+
+<script>
+    $(document).ready( function() {
+        $('#language-select').find('option').each( function() {
+            if ( $(this).val() == "{{ g.user.language }}" ) {
+                $(this).attr('selected', true);
+            }
+        });
+    });
+</script>
+
+<div class="shadowed-div" style="min-width: 400px; max-width: 600px; margin: 0 auto;">
     {% include 'flash.html' %}
-    <h2>{{ _('User Page') }}</h2>
+    <h2>{{ _('User Page') }}: {{ g.user.nickname }}</h2>
+
+    <form action="" method="post" name="login">
+        {{form.hidden_tag()}}
+        <table class="table table-no-border table-condensed">
+            <tr>
+                <td>
+                    {{ render_field(form.language, id="language-select", class="form-control", style="width: 100%;") }}<br/>
+                </td>
+            </tr>
+            <tr>
+                <td class="text-right">
+                    {{ render_field(form.submit, label=False, class="form-control btn btn-info", style="width: 200px;") }}<br/>
+                </td>
+            </tr>
+        </table>
+    </form>
 
 </div>
 

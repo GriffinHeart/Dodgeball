@@ -3,6 +3,7 @@
 
 {% from "_formhelpers.html" import render_field %}
 
+
 <link href="/static/css/bootstrap-datetimepicker.css" rel="stylesheet">
 <script type="text/javascript" src="/static/js/moment.js"></script>
 <script type="text/javascript" src="/static/js/transition.js"></script>
@@ -12,9 +13,9 @@
 
 <div class="shadowed-div" style="margin: 0 auto; min-width: 600px; max-width: 800px;">
     {% include 'flash.html' %}
-    <h2 style="margin-left: 20px;">{{ _('Create Event') }}</h2>
+    <h2 style="margin-left: 20px;">{{ _('Edit Event') }}</h2>
 
-    <form action="createevent" method="post" name="createEventForm">
+    <form action="" method="post" name="editEventForm">
     {{ form.hidden_tag() }}
 
         <table class="table table-no-border table-condensed">
@@ -84,8 +85,9 @@
             <tr>
                 <td colspan="2">
                     <div class='col-sm-12 text-center'>
-                        {{ render_field(form.submit, label=False, class="form-control btn btn-success",
-                            style="width: 300px", value=gettext('Create Event')) }}<br/>
+                        {{ render_field(form.google_id, label=False) }}
+                        {{ render_field(form.submit, label=False, class="form-control btn btn-info",
+                            style="width: 300px", value=gettext('Save Changes')) }}<br/>
                     </div>
                 </td>
             </tr>
