@@ -21,10 +21,10 @@ def login():
         password = form.password.data
         user = User.query.filter_by(nickname=nickname).first()
         if user is None:
-            flash(gettext('Entered username is unknown.'))
+            flash(gettext('Entered username is unknown.'), category='alert-danger')
             return redirect(url_for('login'))
         if not check_password_hash(user.password, password):
-            flash(gettext('Password is incorrect!'), 'error')
+            flash(gettext('Password is incorrect!'), category='alert-danger')
             return redirect(url_for('login'))
         login_user(user)
         if 'cart' in session:
@@ -49,7 +49,7 @@ def signin():
     if form.validate_on_submit():
 
         if len(User.query.filter_by(nickname=form.nickname.data).all()) > 0:
-            flash(gettext("Selected username already exists!"))
+            flash(gettext("Selected username already exists!"), category='alert-danger')
             return redirect(url_for('signin'))
 
         new_email = form.email.data
@@ -57,7 +57,7 @@ def signin():
 
         #user mail already exists
         if len(check_mail) > 0:
-            flash(gettext('Selected email is already in use!'))
+            flash(gettext('Selected email is already in use!'), category='alert-danger')
             return redirect(url_for('signin'))
 
         user = User()

@@ -1,7 +1,9 @@
-{% with messages = get_flashed_messages() %}
+{% with messages = get_flashed_messages(with_categories=true) %}
 {% if messages %}
-{% for message in messages %}
-<div id="flash-message-div" class="flash-message-div alert alert-info">
+{% for category, message in messages %}
+<div id="flash-message-div" class="flash-message-div alert
+    {% if category and category != 'message' %}{{ category }}{% else %}alert-info{% endif %}
+    ">
     <button type="button" class="close" data-dismiss="alert">&times;</button>
     <span style="padding-right: 20px;">{{ message }}</span>
 </div>

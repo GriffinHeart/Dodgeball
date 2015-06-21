@@ -64,7 +64,7 @@ def editevent():
 
     event_id = request.args.get('event_id')
     if not event_id:
-        flash(gettext('Unknown event id!'))
+        flash(gettext('Unknown event id!'), category='alert-danger')
         return redirect(url_for('index'))
 
     event = calendar_service.events().get(calendarId=CALENDAR_ID, eventId=event_id).execute()
@@ -81,7 +81,7 @@ def deleteevent():
     event_id = request.args.get('event_id')
     if not event_id:
         if 'event_id_to_del' not in session:
-            flash(gettext('Unknown event id!'))
+            flash(gettext('Unknown event id!'), category='alert-danger')
             return redirect(url_for('index'))
     else:
         session['event_id_to_del'] = event_id
@@ -98,7 +98,7 @@ def deleteevent():
     if 'event_id_to_del' in session:
         event_id = session.pop('event_id_to_del', None)
     else:
-        flash(gettext('There was some problem with the request. The event was not deleted.'))
+        flash(gettext('There was some problem with the request. The event was not deleted.'), category='alert-danger')
     service.events().delete(calendarId=CALENDAR_ID, eventId=event_id).execute()
     flash(gettext('Event was succesfully deleted.'))
 
@@ -121,7 +121,7 @@ def do_event_create():
     if new_event:
         flash(gettext('Event was succesfully created.'))
     else:
-        flash(gettext('There was some problem with the request. The event was not created.'))
+        flash(gettext('There was some problem with the request. The event was not created.'), category='alert-danger')
 
     return redirect(url_for('index'))
 
@@ -142,7 +142,7 @@ def do_event_edit():
     if updated_event:
         flash(gettext('Event was succesfully updated.'))
     else:
-        flash(gettext('There was some problem with the request. The event was not updated.'))
+        flash(gettext('There was some problem with the request. The event was not updated.'), category='alert-danger')
 
     return redirect(url_for('index'))
 
@@ -201,7 +201,7 @@ def get_event_data_from_session():
         event_data = session['event_data']
         return event_data
     else:
-        flash(gettext('Event data not found!'))
+        flash(gettext('Event data not found!'), category='alert-danger')
         return redirect(url_for('index'))
 
 

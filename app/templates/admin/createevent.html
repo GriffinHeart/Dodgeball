@@ -53,7 +53,7 @@
                                 var start_el = $(this);
                                 var end_el = $('#end_dt_input');
                                 if (end_el.val() == '') { end_el.val(start_el.val()) }
-                                if (start_el.val() <= end_el.val()) {
+                                if (start_el.val() > end_el.val()) {
                                     end_el.val(start_el.val());
                                 }
                             });
@@ -73,7 +73,7 @@
                                 var end_el = $(this);
                                 var start_el = $('#start_dt_input');
                                 if (start_el.val() == '') { start_el.val(end_el.val()) }
-                                if (end_el.val() > start_el.val()) {
+                                if (end_el.val() <= start_el.val()) {
                                     start_el.val(end_el.val());
                                 }
                             });
